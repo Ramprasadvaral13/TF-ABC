@@ -9,11 +9,11 @@ variable "az" {
 
 variable "subnets" {
     description = "subnets to create"
-    type = map(({
+    type = map(object({
         cidr = string
         az = string
         public = bool
-        
+
     }))
 }
 
