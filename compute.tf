@@ -1,16 +1,13 @@
-resource "aws_key_pair" "demo-key" {
-    public_key = file("/Users/ramprasad/.ssh/id_rsa.pub")
-    key_name = "demo-key"
-  
-}
+
 
 resource "aws_instance" "demo-instance" {
     instance_type = var.instance
     ami = var.ami
-    key_name = aws_key_pair.demo-key.key_name
+    key_name = "Cloudops"
     for_each = {for key, subnet in var.subnets : key => subnet if subnet.public == true } 
     subnet_id = aws_subnet.demo-subnets[each.key].id
     security_groups = [ aws_security_group.demo-sg.id ]
+    
 
     provisioner "remote-exec" {
         inline = [ "sudo apt update" ]
