@@ -17,7 +17,7 @@ resource "aws_autoscaling_group" "demo-asg" {
 }
 
 resource "aws_cloudwatch_metric_alarm" "high-cpu-alarm" {
-    alarm_name = "demo-alarm"
+    alarm_name = "high-cpu-alarm"
     comparison_operator = "GreaterThanOrEqualToThreshold"
     evaluation_periods = 2
     metric_name = "CPUUtilization"
