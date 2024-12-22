@@ -9,7 +9,7 @@ resource "aws_instance" "demo-instance" {
     ami = var.ami
     key_name = aws_key_pair.demo-key.key_name
     subnet_id = aws_subnet.demo-vpc-public.id
-    security_groups = [  ]
+    security_groups = [ aws_security_group.demo-sg.id ]
 
     provisioner "remote-exec" {
         inline = [ "sudo apt update" ]
@@ -27,6 +27,24 @@ resource "aws_instance" "demo-instance" {
   
 }
 
-resource "aws_" "name" {
+resource "aws_security_group" "demo-sg" {
+    name = "demo-sg"
+    description = "demo-sg"
+    vpc_id = aws_vpc.demo-vpc.id
+
+    ingress {
+        from_port = 22
+        to_port = 22
+        cidr_blocks = [ "0.0.0.0/0" ]
+        protocol = "tcp"
+        
+    }
+
+    egress {
+        from_port = 0
+        to_port = 0
+        cidr_blocks = [ "0.0.0.0/0" ]
+        protocol = "-1"
+    }
   
 }
