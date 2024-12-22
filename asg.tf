@@ -23,7 +23,7 @@ resource "aws_autoscaling_policy" "scale_up_policy" {
   adjustment_type         = "ChangeInCapacity"
   cooldown                = 300
   metric_aggregation_type = "Average"
-  estimated_instance_warmup = 300
+  
   autoscaling_group_name  = each.value.name
 }
 
@@ -34,7 +34,7 @@ resource "aws_autoscaling_policy" "scale_down_policy" {
   adjustment_type         = "ChangeInCapacity"
   cooldown                = 300
   metric_aggregation_type = "Average"
-  estimated_instance_warmup = 300
+  
   autoscaling_group_name  = each.value.name
 }
 
