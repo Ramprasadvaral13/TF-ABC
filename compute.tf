@@ -8,7 +8,8 @@ resource "aws_instance" "demo-instance" {
     instance_type = var.instance
     ami = var.ami
     key_name = aws_key_pair.demo-key.key_name
-    subnet_id = aws_subnet.demo-vpc-public.id
+    for_each = {for key, subnet in var.subnets : key => subnet if subnet.public == true } 
+    subnet_id = aws_subnet.demo-subnets[each.key].id
     security_groups = [ aws_security_group.demo-sg.id ]
 
     provisioner "remote-exec" {
