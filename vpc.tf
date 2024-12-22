@@ -8,7 +8,7 @@ resource "aws_internet_gateway" "demo-igw" {
   
 }
 
-resource "aws_subnet" "demo-vpc-public" {
+resource "aws_subnet" "demo-subnets" {
     for_each = var.subnets
     vpc_id = aws_vpc.demo-vpc.id
     cidr_block = each.value.cidr
@@ -27,7 +27,8 @@ resource "aws_route_table" "demo-vpc-public-rt" {
 }
 
 resource "aws_route_table_association" "demo-vpc-public-rta" {
-    subnet_id = aws_subnet.demo-vpc-public.id
+    for_each = {for key, subnet in var.subnets : key => subnet if subnet.public == true}
+    subnet_id = aws_subnet.demo-subnets[each.key].id
     route_table_id = aws_route_table.demo-vpc-public-rt.id
   
 }
@@ -38,7 +39,7 @@ resource "aws_eip" "demo-eip" {
 }
 
 resource "aws_nat_gateway" "demo-vpc-nat" {
-    subnet_id = aws_subnet.demo-vpc-public.id
+    subnet_id = aws_subnet.demo-subnets["public 1"].id
     allocation_id = aws_eip.demo-eip.id
   
 }
@@ -53,7 +54,8 @@ resource "aws_route_table" "demo-vpc-private-rt" {
 }
 
 resource "aws_route_table_association" "demo-vpc-private-rta" {
-    subnet_id = aws_subnet.demo-vpc-private.id
+    for_each = {for key, subnet in var.subnets : key => subnet if subnet.public == false }
+    subnet_id = aws_subnet.demo-subnets[each.key].id
     route_table_id = aws_route_table.demo-vpc-public-rt.id
   
 }
