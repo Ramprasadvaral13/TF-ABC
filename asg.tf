@@ -61,7 +61,7 @@ resource "aws_autoscaling_policy" "scale_up_policy" {
     cooldown = 300
     metric_aggregation_type = "Average"
     estimated_instance_warmup = 300
-    autoscaling_group_name = aws_autoscaling_group.demo-asg.name
+    autoscaling_group_name = aws_autoscaling_group.demo-asg[each.key].name
   
 }
 
@@ -72,6 +72,6 @@ resource "aws_autoscaling_policy" "scale_down_policy" {
     cooldown = 300
     metric_aggregation_type = "Average"
     estimated_instance_warmup = 300
-    autoscaling_group_name = aws_autoscaling_group.demo-asg.name
+    autoscaling_group_name = aws_autoscaling_group.demo-asg[each.key].name
   
 }
