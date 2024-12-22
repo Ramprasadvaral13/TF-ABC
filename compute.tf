@@ -8,21 +8,6 @@ resource "aws_instance" "demo-instance" {
     subnet_id = aws_subnet.demo-subnets[each.key].id
     security_groups = [ aws_security_group.demo-sg.id ]
     
-
-    provisioner "remote-exec" {
-        inline = [ "sudo apt update" ]
-
-        connection {
-          host = self.public_ip
-          user = "ubuntu"
-          type = "ssh"
-          private_key = file("/Users/ramprasad/.ssh/id_rsa")
-
-        }
-      
-    }
-
-  
 }
 
 resource "aws_security_group" "demo-sg" {
