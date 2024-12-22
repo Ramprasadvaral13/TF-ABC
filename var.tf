@@ -7,12 +7,14 @@ variable "az" {
     type = string
 }
 
-variable "pub-cidr" {
-    type = string
-}
-
-variable "private-cidr" {
-    type = string
+variable "subnets" {
+    description = "subnets to create"
+    type = map(({
+        cidr = string
+        az = string
+        public = bool
+        
+    }))
 }
 
 variable "route-cidr" {

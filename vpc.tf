@@ -9,16 +9,12 @@ resource "aws_internet_gateway" "demo-igw" {
 }
 
 resource "aws_subnet" "demo-vpc-public" {
+    for_each = var.subnets
     vpc_id = aws_vpc.demo-vpc.id
-    availability_zone = var.az
-    cidr_block = var.pub-cidr
-    map_public_ip_on_launch = true
-}
-
-resource "aws_subnet" "demo-vpc-private" {
-    vpc_id  = aws_vpc.demo-vpc.id
-    availability_zone = var.az
-    cidr_block = var.private-cidr
+    cidr_block = each.value.cidr
+    availability_zone = each.value.az
+    map_public_ip_on_launch = each.value.public
+    
 }
 
 resource "aws_route_table" "demo-vpc-public-rt" {
