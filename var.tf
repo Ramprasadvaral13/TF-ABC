@@ -1,35 +1,35 @@
 variable "vpc-cidr" {
-    type = string
-  
+  type = string
+
 }
 
 variable "az" {
-    type = string
+  type = string
 }
 
 variable "subnets" {
-    description = "subnets to create"
-    type = map(object({
-        cidr = string
-        az = string
-        public = bool
+  description = "subnets to create"
+  type = map(object({
+    cidr   = string
+    az     = string
+    public = bool
 
-    }))
+  }))
 }
 
 variable "route-cidr" {
-    type = string
+  type = string
 }
 
 variable "instance" {
-    type = string
-  
+  type = string
+
 }
 
 variable "ami" {
-    type = string
+  type = string
 }
 
 variable "region" {
-    type = string
+  type = string
 }

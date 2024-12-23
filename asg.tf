@@ -23,8 +23,8 @@ resource "aws_autoscaling_policy" "scale_up_policy" {
   adjustment_type         = "ChangeInCapacity"
   cooldown                = 300
   metric_aggregation_type = "Average"
-  
-  autoscaling_group_name  = each.value.name
+
+  autoscaling_group_name = each.value.name
 }
 
 resource "aws_autoscaling_policy" "scale_down_policy" {
@@ -34,8 +34,8 @@ resource "aws_autoscaling_policy" "scale_down_policy" {
   adjustment_type         = "ChangeInCapacity"
   cooldown                = 300
   metric_aggregation_type = "Average"
-  
-  autoscaling_group_name  = each.value.name
+
+  autoscaling_group_name = each.value.name
 }
 
 resource "aws_cloudwatch_metric_alarm" "high_cpu_alarm" {
